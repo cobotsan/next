@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Menu, X, Phone, Globe, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -37,6 +37,7 @@ export default function Header() {
     };
   }, [isContactFormOpen]);
 
+
   const navigation = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.products'), href: '/products' },
@@ -50,9 +51,8 @@ export default function Header() {
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white shadow-lg' : 'bg-white/90 backdrop-blur-sm'
-        }`}
+        className={`z-[101] fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-white/90 backdrop-blur-sm'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -82,9 +82,9 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    pathname === item.href ? 'text-primary' : 'text-gray-600'
-                  }`}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${pathname === item.href ? 'text-primary' : 'text-gray-600'
+                    }`}
+                  onClick={() => setIsContactFormOpen(false)}
                 >
                   {item.name}
                 </Link>
@@ -106,7 +106,8 @@ export default function Header() {
               <Button
                 className="flex items-center space-x-2"
                 style={{ backgroundColor: 'rgb(76, 169, 88)' }}
-                onClick={() => setIsContactFormOpen(true)}
+                onClick={() => setIsContactFormOpen((prev) => !prev)}
+
               >
                 <Phone className="w-4 h-4" />
                 <span>{t('nav.contact')}</span>
@@ -125,7 +126,10 @@ export default function Header() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsContactFormOpen(false);
+                }}
               >
                 {isMobileMenuOpen ? (
                   <X className="w-6 h-6" />
@@ -149,11 +153,10 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`block px-3 py-2 text-base font-medium ${
-                      pathname === item.href
-                        ? 'text-primary bg-gray-50'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
+                    className={`block px-3 py-2 text-base font-medium ${pathname === item.href
+                      ? 'text-primary bg-gray-50'
+                      : 'text-gray-600 hover:text-gray-900'
+                      }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -177,137 +180,111 @@ export default function Header() {
       </motion.header>
 
       {/* Full-Screen Contact Form Overlay */}
-      <AnimatePresence>
-        {isContactFormOpen && (
-          <motion.div
-            className="inset-0 z-[100] pt-24 overflow-y-auto md:overflow-hidden max-h-screen overscroll-contain"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(76, 169, 88, 0.95) 0%, rgba(59, 65, 69, 0.95) 100%)',
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="min-h-screen pt-16">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="max-w-7xl mx-auto">
-                  {/* Close Button */}
-                  <motion.button
-                    className="absolute top-20 right-4 sm:right-8 text-white hover:text-gray-200 transition-colors z-10"
-                    onClick={() => setIsContactFormOpen(false)}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <X className="w-8 h-8" />
-                  </motion.button>
+      {isContactFormOpen && (
+        <div
+          className="inset-0 z-[100] pt-24 overflow-y-auto md:overflow-hidden max-h-screen overscroll-contain fixed"
+          style={{
+            background:
+              'linear-gradient(135deg, rgba(76, 169, 88, 0.95) 30%, rgba(59, 65, 69, 0.95) 100%)',
+          }}
+        >
+          <div className="min-h-screen pt-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              <div className="max-w-7xl mx-auto">
+                {/* Close Button */}
+                <button
+                  className="absolute top-20 right-4 sm:right-8 text-white hover:text-gray-200 transition-colors z-10"
+                  onClick={() => setIsContactFormOpen(false)}
+                  aria-label="Close Contact Form"
+                >
+                  <X className="w-8 h-8" />
+                </button>
 
-                  <div className="grid lg:grid-cols-2 gap-12 items-start">
-                    {/* Left Column - Company Info */}
-                    <motion.div
-                      className="text-white"
-                      initial={{ opacity: 0, x: -50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                      <div className="mb-8">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                          {t('contact.title')}
-                        </h2>
-                        <div className="w-16 h-1 bg-white mb-6"></div>
-                      </div>
+                <div className="grid lg:grid-cols-2 gap-12 items-start">
+                  {/* Left Column - Company Info */}
+                  <div className="text-white">
+                    <div className="mb-8">
+                      <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                        {t('contact.title')}
+                      </h2>
+                      <div className="w-16 h-1 bg-white mb-6"></div>
+                    </div>
 
-                      <div className="mb-8">
-                        <p className="text-lg text-white/90 mb-6 leading-relaxed">
-                          {language === 'tr'
-                            ? 'Anında danışmanlık veya teklif için formu doldurun. Uygulama, proje kapsamı ve gereksinimleriniz hakkında bize bilgi verin, en kısa sürede sizinle iletişime geçelim. Ya da bizi arayın!'
-                            : 'Please fill out the form for an immediate consultation or a quote. Tell us about your application, project scope and requirements and we will contact you as quickly as we can. Or give us a call!'}
-                        </p>
+                    <div className="mb-8">
+                      <p className="text-lg text-white/90 mb-6 leading-relaxed">
+                        {language === 'tr'
+                          ? 'Anında danışmanlık veya teklif için formu doldurun. Uygulama, proje kapsamı ve gereksinimleriniz hakkında bize bilgi verin, en kısa sürede sizinle iletişime geçelim. Ya da bizi arayın!'
+                          : 'Please fill out the form for an immediate consultation or a quote. Tell us about your application, project scope and requirements and we will contact you as quickly as we can. Or give us a call!'}
+                      </p>
 
-                        <div className="space-y-3 text-white/90">
-                          <div className="flex items-center">
-                            <MapPin className="w-5 h-5 mr-3 flex-shrink-0" />
-                            <div>
-                              <p>Maslak Mahallesi, Büyükdere Caddesi</p>
-                              <p>Şişli, Istanbul 34485</p>
-                            </div>
+                      <div className="space-y-3 text-white/90">
+                        <div className="flex items-center">
+                          <MapPin className="w-5 h-5 mr-3 flex-shrink-0" />
+                          <div>
+                            <p>Maslak Mahallesi, Büyükdere Caddesi</p>
+                            <p>Şişli, Istanbul 34485</p>
                           </div>
-                          <div className="flex items-center">
-                            <Phone className="w-5 h-5 mr-3 flex-shrink-0" />
-                            <div>
-                              <p>+90 (212) 555-0123</p>
-                              <p>+90 (212) 555-0124</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center">
-                            <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
-                            <a
-                              href="mailto:info@nextkiosk.com"
-                              className="hover:text-white transition-colors"
-                            >
-                              info@nextkiosk.com
-                            </a>
-                          </div>
-                          <p className="mt-4 font-medium">
-                            {language === 'tr'
-                              ? "Türkiye'de Üretilmiştir"
-                              : 'Manufactured in Turkey'}
-                          </p>
                         </div>
-                      </div>
-
-                      {/* Social Media Links */}
-                      <div className="flex space-x-4">
-                        {socialLinks.map((social, index) => {
-                          const Icon = social.icon;
-                          return (
-                            <motion.a
-                              key={social.label}
-                              href={social.href}
-                              className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
-                              whileHover={{ scale: 1.1 }}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                duration: 0.6,
-                                delay: 0.4 + index * 0.1,
-                              }}
-                            >
-                              <Icon className="w-5 h-5" />
-                            </motion.a>
-                          );
-                        })}
-                      </div>
-                    </motion.div>
-
-                    {/* Right Column - Contact Form */}
-                    <motion.div
-                      className="bg-transparent rounded-lg p-8 shadow-none"
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.4 }}
-                    >
-                      <div className="mb-6">
-                        <p className="text-white text-center">
+                        <div className="flex items-center">
+                          <Phone className="w-5 h-5 mr-3 flex-shrink-0" />
+                          <div>
+                            <p>+90 (212) 555-0123</p>
+                            <p>+90 (212) 555-0124</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center">
+                          <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
+                          <a
+                            href="mailto:info@nextkiosk.com"
+                            className="hover:text-white transition-colors"
+                          >
+                            info@nextkiosk.com
+                          </a>
+                        </div>
+                        <p className="mt-4 font-medium">
                           {language === 'tr'
-                            ? 'Anında danışmanlık veya teklif için aşağıdaki formu doldurun, en kısa sürede sizinle iletişime geçeceğiz. Teşekkürler!'
-                            : 'Please fill out the form below for an immediate consultation or a quote, we will contact you as quickly as we can. Thanks!'}
+                            ? "Türkiye'de Üretilmiştir"
+                            : 'Manufactured in Turkey'}
                         </p>
                       </div>
+                    </div>
 
-                      <ContactForm
-                        onClose={() => setIsContactFormOpen(false)}
-                      />
-                    </motion.div>
+                    {/* Social Media Links */}
+                    <div className="flex space-x-4">
+                      {socialLinks.map((social) => {
+                        const Icon = social.icon;
+                        return (
+                          <a
+                            key={social.label}
+                            href={social.href}
+                            className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
+                          >
+                            <Icon className="w-5 h-5" />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Right Column - Contact Form */}
+                  <div className="bg-transparent rounded-lg p-8 shadow-none">
+                    <div className="mb-6">
+                      <p className="text-white text-center">
+                        {language === 'tr'
+                          ? 'Anında danışmanlık veya teklif için aşağıdaki formu doldurun, en kısa sürede sizinle iletişime geçeceğiz. Teşekkürler!'
+                          : 'Please fill out the form below for an immediate consultation or a quote, we will contact you as quickly as we can. Thanks!'}
+                      </p>
+                    </div>
+
+                    <ContactForm onClose={() => setIsContactFormOpen(false)} />
                   </div>
                 </div>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
+
     </>
   );
 }

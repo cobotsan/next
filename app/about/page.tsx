@@ -10,47 +10,30 @@ export default function AboutPage() {
   const { t } = useLanguage()
 
   const stats = [
-    { number: '1000+', label: 'Kiosks Deployed' },
-    { number: '50+', label: 'Countries Served' },
-    { number: '200+', label: 'Happy Clients' },
-    { number: '5+', label: 'Years Experience' },
+    { number: '1000+', label: t('about.stats.kiosks') },
+    { number: '50+', label: t('about.stats.countries') },
+    { number: '200+', label: t('about.stats.clients') },
+    { number: '5+', label: t('about.stats.years') },
   ]
 
   const values = [
     {
       icon: Award,
       title: t('about.values.innovation'),
-      description: 'We continuously push the boundaries of kiosk technology.',
+      description: t('about.values.innovation.desc'),
     },
     {
       icon: Heart,
       title: t('about.values.quality'),
-      description: 'Every product meets our rigorous quality standards.',
+      description: t('about.values.quality.desc'),
     },
     {
       icon: Users,
       title: t('about.values.service'),
-      description: 'Customer satisfaction is at the heart of everything we do.',
+      description: t('about.values.service.desc'),
     },
   ]
 
-  const team = [
-    {
-      name: 'John Smith',
-      position: 'CEO & Founder',
-      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400',
-    },
-    {
-      name: 'Sarah Johnson',
-      position: 'CTO',
-      image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400',
-    },
-    {
-      name: 'Michael Chen',
-      position: 'Head of Design',
-      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400',
-    },
-  ]
 
   return (
     <div>
@@ -119,9 +102,7 @@ export default function AboutPage() {
                 {t('about.story.content')}
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Our commitment to innovation and customer satisfaction has made us 
-                a trusted partner for businesses looking to enhance their customer 
-                experience through technology.
+                {t('about.story.commitment')}
               </p>
             </motion.div>
             <motion.div
@@ -175,9 +156,7 @@ export default function AboutPage() {
                 {t('about.mission.content')}
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                We believe that technology should enhance human interaction, not replace it. 
-                Our kiosks are designed to streamline processes while maintaining the 
-                personal touch that customers value.
+                {t('about.mission.belief')}
               </p>
             </motion.div>
           </div>
@@ -229,7 +208,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gray-50">
+      {/* <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-16"
@@ -273,7 +252,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }

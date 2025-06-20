@@ -33,6 +33,10 @@ const translations = {
     'featured.support.title': '24/7 Support',
     'featured.support.desc': 'Comprehensive support and maintenance services for uninterrupted operation.',
     
+    // Homepage blogs
+    'home.latestBlogs': 'Latest Blog Posts',
+    'home.viewAllBlogs': 'View All',
+
     // Products
     'products.title': 'Our Kiosk Solutions',
     'products.subtitle': 'Discover our comprehensive range of kiosk solutions designed for various industries.',
@@ -66,7 +70,24 @@ const translations = {
     'about.values.innovation': 'Innovation',
     'about.values.quality': 'Quality',
     'about.values.service': 'Service',
-    
+
+    // About Page Stats
+    'about.stats.kiosks': 'Kiosks Deployed',
+    'about.stats.countries': 'Countries Served',
+    'about.stats.clients': 'Happy Clients',
+    'about.stats.years': 'Years Experience',
+
+    // About Page Values Descriptions
+    'about.values.innovation.desc': 'We continuously push the boundaries of kiosk technology.',
+    'about.values.quality.desc': 'Every product meets our rigorous quality standards.',
+    'about.values.service.desc': 'Customer satisfaction is at the heart of everything we do.',
+
+    // About Page Story
+    'about.story.commitment': 'Our commitment to innovation and customer satisfaction has made us a trusted partner for businesses looking to enhance their customer experience through technology.',
+
+    // About Page Mission
+    'about.mission.belief': 'We believe that technology should enhance human interaction, not replace it. Our kiosks are designed to streamline processes while maintaining the personal touch that customers value.',
+ 
     // Custom Kiosk
     'custom.title': 'Custom Kiosk Solutions',
     'custom.subtitle': 'Tailored to your unique business needs',
@@ -116,6 +137,10 @@ const translations = {
     'featured.customization.desc': 'Markanıza ve operasyonel ihtiyaçlarınıza göre her detayı uyarlayın.',
     'featured.support.title': '7/24 Destek',
     'featured.support.desc': 'Kesintisiz operasyon için kapsamlı destek ve bakım hizmetleri.',
+
+    // Homepage blogs
+    'home.latestBlogs': 'Son Blog Yazıları',
+    'home.viewAllBlogs': 'Tümünü Gör',
     
     // Products
     'products.title': 'Kiosk Çözümlerimiz',
@@ -150,7 +175,24 @@ const translations = {
     'about.values.innovation': 'İnovasyon',
     'about.values.quality': 'Kalite',
     'about.values.service': 'Hizmet',
-    
+
+    // About Page Stats
+    'about.stats.kiosks': 'Kurulan Kiosk',
+    'about.stats.countries': 'Hizmet Verilen Ülke',
+    'about.stats.clients': 'Mutlu Müşteri',
+    'about.stats.years': 'Yıllık Deneyim',
+
+    // About Page Values Descriptions
+    'about.values.innovation.desc': 'Kiosk teknolojisinin sınırlarını sürekli zorluyoruz.',
+    'about.values.quality.desc': 'Her ürünümüz titiz kalite standartlarımızı karşılar.',
+    'about.values.service.desc': 'Müşteri memnuniyeti her şeyin merkezindedir.',
+
+    // About Page Story
+    'about.story.commitment': 'İnovasyon ve müşteri memnuniyetine olan bağlılığımız, teknolojiyi kullanarak müşteri deneyimini geliştirmek isteyen işletmeler için güvenilir bir ortak olmamızı sağladı.',
+
+    // About Page Mission
+    'about.mission.belief': 'Teknolojinin insan etkileşimini geliştirmesi gerektiğine inanıyoruz, yerine geçmemeli. Kiosklarımız, müşterilerin değer verdiği kişisel dokunuşu korurken süreçleri kolaylaştırmak için tasarlanmıştır.',
+  
     // Custom Kiosk
     'custom.title': 'Özel Kiosk Çözümleri',
     'custom.subtitle': 'Benzersiz iş ihtiyaçlarınıza özel tasarım',
@@ -184,7 +226,7 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en')
+  const [language, setLanguage] = useState<Language>('tr')
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations[typeof language]] || key

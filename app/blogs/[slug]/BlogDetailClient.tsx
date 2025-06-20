@@ -8,12 +8,6 @@ import {
   Calendar,
   User,
   Clock,
-  Eye,
-  MessageCircle,
-  Share2,
-  Facebook,
-  Twitter,
-  Linkedin,
   ArrowLeft,
   Tag,
 } from 'lucide-react';

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { CheckCircle, Users, Lightbulb, Wrench, Truck } from 'lucide-react'
@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function CustomKioskPage() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   const processSteps = [
     {
@@ -45,9 +45,66 @@ export default function CustomKioskPage() {
     'Ongoing support and maintenance',
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+// Quote form state
+  const [quoteForm, setQuoteForm] = useState({
+    company: '',
+    industry: '',
+    contactName: '',
+    contactEmail: '',
+    quantity: '',
+    requirements: '',
+  })
+  const [quoteLoading, setQuoteLoading] = useState(false)
+  const [quoteError, setQuoteError] = useState('')
+  const [quoteSuccess, setQuoteSuccess] = useState('')
+
+  const handleQuoteChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setQuoteForm({ ...quoteForm, [e.target.id]: e.target.value })
+  }
+
+  const handleQuoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
+    setQuoteLoading(true)
+    setQuoteError('')
+    setQuoteSuccess('')
+
+    try {
+      const res = await fetch('https://next-kiosk-contact.onrender.com/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: quoteForm.contactName,
+          lastName: '',
+          phone: '',
+          company: quoteForm.company,
+          email: quoteForm.contactEmail,
+          message:
+            `Industry: ${quoteForm.industry}\n` +
+            `Estimated Quantity: ${quoteForm.quantity}\n` +
+            `Requirements: ${quoteForm.requirements}`,
+          recaptchaToken: '', // No recaptcha for quote form, or add if you want
+        }),
+      })
+
+      if (!res.ok) {
+        const text = await res.text()
+        throw new Error(text)
+      }
+
+      setQuoteSuccess(language === 'tr' ? 'Teklif talebiniz başarıyla gönderildi!' : 'Your quote request has been sent!')
+      setQuoteForm({
+        company: '',
+        industry: '',
+        contactName: '',
+        contactEmail: '',
+        quantity: '',
+        requirements: '',
+      })
+    } catch (err: any) {
+      setQuoteError(err.message || 'Failed to send quote request')
+    } finally {
+      setQuoteLoading(false)
+    }
   }
 
   return (
@@ -200,47 +257,54 @@ export default function CustomKioskPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleQuoteSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="company">Company Name</Label>
-                    <Input id="company" required />
+                    <Input id="company" value={quoteForm.company} onChange={handleQuoteChange} required />
                   </div>
                   <div>
                     <Label htmlFor="industry">Industry</Label>
-                    <Input id="industry" required />
+                    <Input id="industry" value={quoteForm.industry} onChange={handleQuoteChange} required />
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="contact-name">Contact Name</Label>
-                    <Input id="contact-name" required />
+                    <Label htmlFor="contactName">Contact Name</Label>
+                    <Input id="contactName" value={quoteForm.contactName} onChange={handleQuoteChange} required />
                   </div>
                   <div>
-                    <Label htmlFor="contact-email">Email</Label>
-                    <Input id="contact-email" type="email" required />
+                    <Label htmlFor="contactEmail">Email</Label>
+                    <Input id="contactEmail" type="email" value={quoteForm.contactEmail} onChange={handleQuoteChange} required />
                   </div>
                 </div>
                 <div>
                   <Label htmlFor="quantity">Estimated Quantity</Label>
-                  <Input id="quantity" type="number" min="1" required />
+                  <Input id="quantity" type="number" min="1" value={quoteForm.quantity} onChange={handleQuoteChange} required />
                 </div>
                 <div>
                   <Label htmlFor="requirements">Project Requirements</Label>
                   <Textarea
                     id="requirements"
                     rows={6}
+                    value={quoteForm.requirements}
+                    onChange={handleQuoteChange}
                     placeholder="Please describe your custom kiosk requirements, including size, features, industry needs, and any specific customizations..."
                     required
                   />
                 </div>
+                {quoteError && <p className="text-red-500">{quoteError}</p>}
+                {quoteSuccess && <p className="text-green-500">{quoteSuccess}</p>}
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full text-lg"
                   style={{ backgroundColor: 'rgb(76, 169, 88)' }}
+                  disabled={quoteLoading}
                 >
-                  Submit Quote Request
+                  {quoteLoading
+                    ? language === 'tr' ? 'Gönderiliyor...' : 'Sending...'
+                    : language === 'tr' ? 'Teklif Gönder' : 'Submit Quote Request'}
                 </Button>
               </form>
             </motion.div>
