@@ -1,82 +1,105 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Calendar, User, Clock, Eye, MessageCircle, Share2, Facebook, Twitter, Linkedin, ArrowLeft, Tag } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useLanguage } from '@/contexts/LanguageContext'
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import {
+  Calendar,
+  User,
+  Clock,
+  Eye,
+  MessageCircle,
+  Share2,
+  Facebook,
+  Twitter,
+  Linkedin,
+  ArrowLeft,
+  Tag,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Blog {
-  id: number
-  title: string
-  titletr?: string
-  slug: string
-  slugtr?: string
-  author: string
-  authortr?: string
-  publishDate: string
-  featuredImage: string
-  excerpt: string
-  excerpttr?: string
-  content: string
-  contenttr?: string
-  categories: string[]
-  categoriestr?: string[]
-  tags: string[]
-  tagstr?: string[]
-  readTime: number
-  commentsCount: number
-  views: number
+  id: number;
+  title: string;
+  titletr?: string;
+  slug: string;
+  slugtr?: string;
+  author: string;
+  authortr?: string;
+  publishDate: string;
+  featuredImage: string;
+  excerpt: string;
+  excerpttr?: string;
+  content: string;
+  contenttr?: string;
+  categories: string[];
+  categoriestr?: string[];
+  tags: string[];
+  tagstr?: string[];
+  readTime: number;
+  commentsCount: number;
+  views: number;
 }
 
 export default function BlogDetailClient({ blog }: { blog: Blog }) {
-  const { language } = useLanguage()
-  const [showShareMenu, setShowShareMenu] = useState(false)
+  const { language } = useLanguage();
+  const [showShareMenu, setShowShareMenu] = useState(false);
 
-  const title = language === 'tr' && blog.titletr ? blog.titletr : blog.title
-  const content = language === 'tr' && blog.contenttr ? blog.contenttr : blog.content
-  const author = language === 'tr' && blog.authortr ? blog.authortr : blog.author
-  const categories = language === 'tr' && blog.categoriestr ? blog.categoriestr : blog.categories
-  const tags = language === 'tr' && blog.tagstr ? blog.tagstr : blog.tags
+  const title = language === 'tr' && blog.titletr ? blog.titletr : blog.title;
+  const content =
+    language === 'tr' && blog.contenttr ? blog.contenttr : blog.content;
+  const author =
+    language === 'tr' && blog.authortr ? blog.authortr : blog.author;
+  const categories =
+    language === 'tr' && blog.categoriestr
+      ? blog.categoriestr
+      : blog.categories;
+  const tags = language === 'tr' && blog.tagstr ? blog.tagstr : blog.tags;
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return date.toLocaleDateString(language === 'tr' ? 'tr-TR' : 'en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
-    })
-  }
+      day: 'numeric',
+    });
+  };
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
-  const shareText = `${title} - Next Kiosk Blog`
+  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const shareText = `${title} - Next Kiosk Blog`;
 
   const handleShare = (platform: string) => {
-    let url = ''
+    let url = '';
     switch (platform) {
       case 'facebook':
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
-        break
+        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          shareUrl
+        )}`;
+        break;
       case 'twitter':
-        url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`
-        break
+        url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          shareUrl
+        )}&text=${encodeURIComponent(shareText)}`;
+        break;
       case 'linkedin':
-        url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`
-        break
+        url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          shareUrl
+        )}`;
+        break;
     }
     if (url) {
-      window.open(url, '_blank', 'width=600,height=400')
+      window.open(url, '_blank', 'width=600,height=400');
     }
-    setShowShareMenu(false)
-  }
+    setShowShareMenu(false);
+  };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shareUrl)
-    setShowShareMenu(false)
+    navigator.clipboard.writeText(shareUrl);
+    setShowShareMenu(false);
     // You could add a toast notification here
-  }
+  };
 
   return (
     <div>
@@ -127,7 +150,9 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
             </div>
             <div className="flex items-center">
               <Clock className="w-5 h-5 mr-2" />
-              <span>{blog.readTime} {language === 'tr' ? 'dk okuma' : 'min read'}</span>
+              <span>
+                {blog.readTime} {language === 'tr' ? 'dk okuma' : 'min read'}
+              </span>
             </div>
           </motion.div>
         </div>
@@ -147,19 +172,19 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
               <Link href="/blogs">
                 <Button variant="outline" className="flex items-center">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  {language === 'tr' ? 'Blog\'a Dön' : 'Back to Blog'}
+                  {language === 'tr' ? "Blog'a Dön" : 'Back to Blog'}
                 </Button>
               </Link>
             </motion.div>
 
             {/* Article Stats */}
-            <motion.div
+            {/* <motion.div
               className="flex items-center justify-between mb-8 p-4 bg-gray-50 rounded-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="flex items-center space-x-6 text-sm text-gray-600">
+            > */}
+            {/* <div className="flex items-center space-x-6 text-sm text-gray-600">
                 <div className="flex items-center">
                   <Eye className="w-4 h-4 mr-1" />
                   <span>{blog.views} {language === 'tr' ? 'görüntülenme' : 'views'}</span>
@@ -168,10 +193,11 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
                   <MessageCircle className="w-4 h-4 mr-1" />
                   <span>{blog.commentsCount} {language === 'tr' ? 'yorum' : 'comments'}</span>
                 </div>
-              </div>
-              
-              {/* Share Button */}
-              <div className="relative">
+              </div> */}
+
+            {/* Share Button */}
+
+            {/* <div className="relative">
                 <Button
                   variant="outline"
                   size="sm"
@@ -221,8 +247,8 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
                     </div>
                   </motion.div>
                 )}
-              </div>
-            </motion.div>
+              </div> */}
+            {/* </motion.div> */}
 
             {/* Article Content */}
             <motion.div
@@ -277,17 +303,18 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
                   {author.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">{author}</h3>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {author}
+                  </h3>
                   <p className="text-gray-600">
                     {language === 'tr' ? 'Yazar' : 'Author'}
                   </p>
                 </div>
               </div>
               <p className="text-gray-700">
-                {language === 'tr' 
+                {language === 'tr'
                   ? 'Kiosk teknolojileri ve dijital çözümler konusunda uzman yazar.'
-                  : 'Expert writer specializing in kiosk technologies and digital solutions.'
-                }
+                  : 'Expert writer specializing in kiosk technologies and digital solutions.'}
               </p>
             </motion.div>
 
@@ -304,7 +331,9 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
                   className="text-lg px-8 py-4"
                   style={{ backgroundColor: 'rgb(76, 169, 88)' }}
                 >
-                  {language === 'tr' ? 'Diğer Yazıları Görüntüle' : 'View More Articles'}
+                  {language === 'tr'
+                    ? 'Diğer Yazıları Görüntüle'
+                    : 'View More Articles'}
                 </Button>
               </Link>
             </motion.div>
@@ -312,5 +341,5 @@ export default function BlogDetailClient({ blog }: { blog: Blog }) {
         </div>
       </section>
     </div>
-  )
+  );
 }

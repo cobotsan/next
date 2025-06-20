@@ -13,6 +13,7 @@ import {
   Instagram,
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Image from 'next/image';
 
 export default function Footer() {
   const { t, language } = useLanguage();
@@ -38,15 +39,22 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <motion.h3
-              className="text-2xl font-bold"
-              style={{ color: 'rgb(76, 169, 88)' }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              Next Kiosk
-            </motion.h3>
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="relative h-10 w-auto"
+              >
+                <Image
+                  src="/images/logo/logo-gray.png"
+                  alt="Next Kiosk Logo"
+                  width={3508}
+                  height={2481}
+                  className="h-full w-auto object-contain"
+                  priority
+                />
+              </motion.div>
+            </Link>
             <p className="text-gray-300 text-sm">{t('footer.description')}</p>
             <div className="flex space-x-4">
               {/* {socialLinks.map((social, index) => {

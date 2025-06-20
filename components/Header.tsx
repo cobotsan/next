@@ -180,7 +180,7 @@ export default function Header() {
       <AnimatePresence>
         {isContactFormOpen && (
           <motion.div
-            className="inset-0 z-[1000] pt-24 overflow-y-auto"
+            className="inset-0 z-[100] pt-24 overflow-y-auto md:overflow-hidden max-h-screen overscroll-contain"
             style={{
               background:
                 'linear-gradient(135deg, rgba(76, 169, 88, 0.95) 0%, rgba(59, 65, 69, 0.95) 100%)',
