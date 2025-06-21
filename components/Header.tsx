@@ -63,7 +63,7 @@ export default function Header() {
             <Link href="/" className="flex items-center">
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="relative h-10 w-auto"
+                className="relative h-7 w-auto"
               >
                 <Image
                   src="/images/logo/logo-gray.png"
@@ -82,7 +82,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${pathname === item.href ? 'text-primary' : 'text-gray-600'
+                  className={`text-m font-medium transition-colors hover:text-primary ${pathname === item.href ? 'text-primary' : 'text-gray-600'
                     }`}
                   onClick={() => setIsContactFormOpen(false)}
                 >
@@ -127,7 +127,7 @@ export default function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={() => {
-                  setIsMobileMenuOpen(false);
+                  setIsMobileMenuOpen(prev => !prev);
                   setIsContactFormOpen(false);
                 }}
               >
@@ -143,7 +143,7 @@ export default function Header() {
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden border-t bg-white"
+              className="z-[101] md:hidden border-t bg-white"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -188,7 +188,7 @@ export default function Header() {
               'linear-gradient(135deg, rgba(76, 169, 88, 0.95) 30%, rgba(59, 65, 69, 0.95) 100%)',
           }}
         >
-          <div className="min-h-screen pt-16">
+          <div className="min-h-screen pt-8">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="max-w-7xl mx-auto">
                 {/* Close Button */}

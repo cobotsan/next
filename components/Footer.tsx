@@ -46,7 +46,7 @@ export default function Footer() {
                 className="relative h-10 w-auto"
               >
                 <Image
-                  src="/images/logo/logo-gray.png"
+                  src="/images/logo/logo-white.png"
                   alt="Next Kiosk Logo"
                   width={3508}
                   height={2481}

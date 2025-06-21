@@ -47,7 +47,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       <Link href={`/products/${getProductSlug()}`}>
         <div
           className="
-            relative bg-white rounded-lg shadow-md overflow-hidden product-card-hover cursor-pointer flex flex-col items-center
+          content-center relative bg-white rounded-lg shadow-md overflow-hidden product-card-hover cursor-pointer flex flex-col items-center
           "
         >
           {/*image container with max height */}
@@ -59,13 +59,10 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               src={product.image}
               alt={productName}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="object-contain group-hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 260px"
               style={{ objectPosition: 'top center' }}
             />
-            <div className="product-card-overlay">
-              <span>{t('products.viewDetails')}</span>
-            </div>
           </div>
           <div className="p-2 md:p-4 w-full flex-1 flex flex-col">
             <div className="flex justify-between items-start mb-2">

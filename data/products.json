@@ -7,12 +7,13 @@
     "slugtr": "interaktif-bilgi-kiosku",
     "category": "Information",
     "price": "$2,999",
-    "image": "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/kiosk/totem-main.png",
     "images": [
-      "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      "/images/kiosk/totem-1.png",
+      "/images/kiosk/totem-2.png",
+      "/images/kiosk/totem-3.png"
     ],
+    "product3d": "/models/test.glb",
     "description": "Modern touchscreen information kiosk perfect for retail spaces, hotels, and public areas.",
     "descriptiontr": "Perakende alanları, oteller ve kamusal alanlar için mükemmel modern dokunmatik bilgi kiosku.",
     "features": [
@@ -105,114 +106,6 @@
       "connectivity": "WiFi, Ethernet, 4G",
       "power": "100-240V AC",
       "dimensions": "200 x 60 x 50 cm"
-    }
-  },
-  {
-    "id": 4,
-    "name": "Food Ordering Kiosk",
-    "slug": "food-ordering-kiosk",
-    "nametr": "Yemek Sipariş Kiosku",
-    "slugtr": "yemek-siparis-kiosku",
-    "category": "Restaurant",
-    "price": "$3,799",
-    "image": "https://images.pexels.com/photos/6517418/pexels-photo-6517418.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "images": [
-      "https://images.pexels.com/photos/6517418/pexels-photo-6517418.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/4968639/pexels-photo-4968639.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/5632381/pexels-photo-5632381.jpeg?auto=compress&cs=tinysrgb&w=1200"
-    ],
-    "description": "User-friendly food ordering kiosk designed for restaurants and fast-food chains.",
-    "descriptiontr": "Restoranlar ve fast-food zincirleri için tasarlanmış kullanıcı dostu yemek sipariş kiosku.",
-    "features": [
-      "24\" Touchscreen",
-      "Integrated payment system",
-      "Multi-language support",
-      "Kitchen integration"
-    ],
-    "featurestr": [
-      "24\" Dokunmatik Ekran",
-      "Entegre ödeme sistemi",
-      "Çok dil desteği",
-      "Mutfak entegrasyonu"
-    ],
-    "specifications": {
-      "screen": "24\" LED",
-      "resolution": "1920x1080",
-      "connectivity": "WiFi, Ethernet, Bluetooth",
-      "power": "100-240V AC",
-      "dimensions": "175 x 55 x 45 cm"
-    }
-  },
-  {
-    "id": 5,
-    "name": "Check-in Kiosk",
-    "slug": "check-in-kiosk",
-    "nametr": "Check-in Kiosku",
-    "slugtr": "check-in-kiosku",
-    "category": "Hospitality",
-    "price": "$2,799",
-    "image": "https://images.pexels.com/photos/5632381/pexels-photo-5632381.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "images": [
-      "https://images.pexels.com/photos/5632381/pexels-photo-5632381.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=1200"
-    ],
-    "description": "Streamlined check-in kiosk for hotels, airlines, and event venues.",
-    "descriptiontr": "Oteller, havayolları ve etkinlik mekanları için akıcı check-in kiosku.",
-    "features": [
-      "19\" Touchscreen",
-      "ID scanner",
-      "Ticket/key card printer",
-      "Queue management"
-    ],
-    "featurestr": [
-      "19\" Dokunmatik Ekran",
-      "Kimlik tarayıcısı",
-      "Bilet/anahtar kart yazıcısı",
-      "Kuyruk yönetimi"
-    ],
-    "specifications": {
-      "screen": "19\" LED",
-      "resolution": "1280x1024",
-      "connectivity": "WiFi, Ethernet, USB",
-      "power": "100-240V AC",
-      "dimensions": "160 x 45 x 40 cm"
-    }
-  },
-  {
-    "id": 6,
-    "name": "Healthcare Information Kiosk",
-    "slug": "healthcare-information-kiosk",
-    "nametr": "Sağlık Bilgi Kiosku",
-    "slugtr": "saglik-bilgi-kiosku",
-    "category": "Healthcare",
-    "price": "$3,999",
-    "image": "https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "images": [
-      "https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/4968639/pexels-photo-4968639.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "https://images.pexels.com/photos/6517418/pexels-photo-6517418.jpeg?auto=compress&cs=tinysrgb&w=1200"
-    ],
-    "description": "HIPAA-compliant healthcare kiosk for patient check-in and information access.",
-    "descriptiontr": "Hasta check-in ve bilgi erişimi için HIPAA uyumlu sağlık kiosku.",
-    "features": [
-      "17\" Medical-grade touchscreen",
-      "Sanitization system",
-      "HIPAA compliance",
-      "EMR integration"
-    ],
-    "featurestr": [
-      "17\" Tıbbi sınıf dokunmatik ekran",
-      "Sanitizasyon sistemi",
-      "HIPAA uyumluluğu",
-      "EMR entegrasyonu"
-    ],
-    "specifications": {
-      "screen": "17\" Medical LED",
-      "resolution": "1280x1024",
-      "connectivity": "Secure WiFi, Ethernet",
-      "power": "100-240V AC",
-      "dimensions": "170 x 50 x 42 cm"
     }
   }
 ]
